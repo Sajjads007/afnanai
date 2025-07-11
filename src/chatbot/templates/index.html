@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script src="{% static 'js/page.js' %}" defer></script>
+</head>
+<body>
+  <div class="chat-container">
+    <h2>Chat with AFNAN</h2>
+
+    <div class="chat-box" id="chat-box">
+      {% if response %}
+        <div class="chat-message user"><strong>You:</strong> {{ request.POST.user_input }}</div>
+        <div class="chat-message bot"><strong>Afnan:</strong> {{ response }}</div>
+      {% endif %}
+    </div>
+
+    <form method="POST" action="" class="ajax" id="ajax">
+      {% csrf_token %}
+      <input type="text" name="user_input" id="user_input" placeholder="Ask something..." required />
+      <button type="submit">Send</button>
+    </form>
+  </div>
+</body>
+<script>
+  const CSRF_TOKEN = "{{ csrf_token }}";
+</script>
+</html>
